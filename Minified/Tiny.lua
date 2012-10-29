@@ -1,8 +1,9 @@
-Object={}Object.__index=Object
-setmetatable(Object,Object)function Object:__call(...)return self:new(...)end
-function Object:init()end
-function Object:parent()return getmetatable(self)end
-function Object:new(...)local e={}setmetatable(e,self)self.__index=self
-self.__call=Object.__call
-e:init(...)return e
+z={} _s=setmetatable
+_s(z,z)function z.__call(s, ...)return s:new(...)end
+function z:init()end
+function z.parent()return getmetatable(s)end
+function z.new(s,...)local o=_s({},s)s.__index=s
+s.__call=Object.__call
+o:init(...)return o
 end
+Object=z
