@@ -4,18 +4,31 @@ A very simple object system for Lua, less than 320 bytes.
 
 ##Features
 
-Tinyobj:
+Minimal Object:
 
 * Prototyping (inheritence)
 * Constructors
 * Lean codebase, smaller than any other object library I've seen.
 
+Light Object:
+
+* Minimal Object + Prettier syntax for constructors and creating new objects.
+
+```lua
+Object:new() -> Object()
+
+function Cat:__init()
+end
+
+->
+
+function Cat:Cat()
+end
+```
+
 Object:
 
-* Prototyping
-* Constructors + fancy syntax for definition
-* Metamethod inheritence
-* Low performance and code footprint
+* Light Object + Metamethod inheritence
 
 
 ##Usage
