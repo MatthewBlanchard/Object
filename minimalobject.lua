@@ -1,7 +1,7 @@
 Object = {}
 
 -- Constructor
-function Object:__init()
+function Object:__new()
 end
 
 -- Methods
@@ -14,7 +14,7 @@ function Object:new(...)
     setmetatable(o, self)
     self.__index = self
 
-    local err = o:__init(...)
+    local err = o:__new(...)
     return err or o
 end
 

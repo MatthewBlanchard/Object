@@ -11,16 +11,8 @@ function Object:__call(...)
     return self:new(...)
 end
 
-function Object:__newindex(k, v)
-    if k == "init" or getfenv(2)[k] == self then
-        rawset(self, "__init", v)
-    else
-        rawset(self, k, v)
-    end
-end
-
 -- Constructor
-function Object:__init()
+function Object:__new()
 end
 
 -- Private/Static methods
@@ -46,13 +38,12 @@ function Object:new(...)
     setmetatable(o, self)
     self.__index = self
     self.__call = Object.__call
-    self.__newindex = Object.__newindex
     
     for k,v in pairs(Object.__metamethods) do
         o[v] = self:__metamethod(v)
     end
     
-    local err = o:__init(...)
+    local err = o:__new(...)
     return err or o
 end
 
