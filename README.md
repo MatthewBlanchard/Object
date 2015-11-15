@@ -1,35 +1,33 @@
 #Object
 
-A very simple object system for Lua, less than 320 bytes.
+A very simple OO library for Lua.
 
 ##Features
 
-Minimal Object:
-
-* Prototyping (inheritence)
+* Prototypical inheritence
 * Constructors
 * Lean codebase, smaller than any other object library I've seen.
 
-Light Object:
-
-* Minimal Object + Prettier syntax for constructors and creating new objects.
-
 ```lua
-Object:new() -> Object()
+Cat = Object()
 
-function Cat:__init()
+-- Defaults
+Cat.name = "A stray"
+
+-- Constructor
+function Cat:__new(name)
+	self.name = name
 end
 
-->
-
-function Cat:Cat()
+-- Methods
+function Cat:meow()
+	print(self.name .. " meows!")
 end
+
+-- Usage
+Merlin = Cat("Merlin")
+Merlin:meow() -- "Merlin meows!"
 ```
-
-Object:
-
-* Light Object + Metamethod inheritence
-
 
 ##Usage
 
@@ -37,47 +35,10 @@ Object:
 To create an object:
 
 ```lua
-Cat = Object()
-```
-
-or
-
-```lua
+Cat = Object() -- or
 Cat = Object:new()
 ```
-
-###Inheritance
-Assuming the Cat variable still exists:
-
-```lua
-Siamese = Cat()
-```
-
-or
-
-```lua
-Siamese = Cat:new()
-```
-
-Inheritence is the same as creating an object. The object you call new on becomes the prototype for the new object.
-
-###Differences from other object libraries
-
-Object has no concept of a class or instance. Any object can become the prototype for another object. I personally feel this is more Luaey then shoving the concept of classes into Lua. This particular library was somewhat inspired by my short experience with Javascript, so it's paradigm is similar I think, but without all the javascript nasties. Let me show you a few things class libraries can't do.
-
-Let's create a predamaged enemy prototype:
-```lua
-dEnemy = Enemy()
-
-function dEnemy:dEnemy() -- Or dEnemy:init(), whichever you like tinyobj only supports init()
-  dEnemy:damage(10)
-  dEnemy:remove("larm")
-end
-
-Bill = dEnemy() -- BAM!
-```
-
-Now Bill is using the damaged enemy as a prototype and will be damaged. If you were making a zombie game you could do this so you could specifically spawn damaged/destroyed zombies or something. 
+When you call new on an object it creates a new table, sets it's __index to the object it's being called on, and calls the constructor of said object (__new). Object has no concept of class definitions or instances. All objects are potentially prototypes for a new object. Instances are definitions by definition.
 
 
 ##License
